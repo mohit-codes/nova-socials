@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import { useAuth } from "../Context/authProvider";
+import { Input, Label } from "../Components/FormComponents";
 
 const Login = () => {
   const { loginUserWithCredentials, validateEmail } = useAuth();
@@ -14,7 +15,6 @@ const Login = () => {
     event.preventDefault();
     setError("");
     setLoading(true);
-    console.log(validateEmail(email));
     if (validateEmail(email)) {
       const { message, success } = await loginUserWithCredentials(
         email,
@@ -22,6 +22,7 @@ const Login = () => {
       );
       if (success) {
         setLoading(false);
+        navigate("home");
         return;
       }
       setLoading(false);
@@ -33,34 +34,27 @@ const Login = () => {
   };
   return (
     <div className="h-screen flex justify-center">
-      <div className="text-center mt-40  ">
+      <div className="text-center mt-40">
         <h1 className="text-5xl font-semibold mb-4">Nova Socials</h1>
         <p className="text-red-600 font-medium">{error}</p>
         <div className="text-left shadow-lg w-96 p-4 bg-gray-200 rounded-md mt-2">
-          <form
-            onSubmit={(e) => {
-              loginHandler(e);
-            }}
-          >
+          <form onSubmit={loginHandler}>
             <div className="">
-              <label htmlFor="email" className="font-semibold">
-                Email
-              </label>
-              <input
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+              <Label htmlFor="email" labelText="Email" id="email-input-title" />
+              <Input
+                callback={setEmail}
                 placeholder="Your Email"
                 value={email}
                 id="email"
-                type="text"
-                className="border-2 border-gray-400 rounded-md w-full p-2 my-2"
+                ariaLabelledBy="email-input-title"
               />
             </div>
             <div>
-              <label htmlFor="password" className="font-semibold">
-                Password
-              </label>
+              <Label
+                htmlFor="password"
+                labelText="Password"
+                id="password-input-title"
+              />
               <div className="border-2 border-gray-400 bg-white rounded-md flex items-center">
                 <input
                   onChange={(e) => {
@@ -71,6 +65,7 @@ const Login = () => {
                   value={password}
                   type={showPassword ? "text" : "password"}
                   className="bg-transparent rounded-md w-11/12 p-2 focus:outline-none"
+                  aria-labelledby="password-input-title"
                 />
                 {showPassword ? (
                   <i
