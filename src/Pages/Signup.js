@@ -12,7 +12,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const matchPassword = confirmPassword === password;
 
   const isPasswordValid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(
@@ -109,13 +109,30 @@ const Signup = () => {
                 id="password-input-title"
                 labelText="Password"
               />
-              <Input
-                id="password"
-                placeholder="Password"
-                ariaLabelledBy="password-input-title"
-                value={password}
-                callback={setPassword}
-              />
+              <div className="border-2 border-gray-400 bg-white rounded-md flex items-center">
+                <input
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  placeholder="Password"
+                  id="password"
+                  value={password}
+                  type={showPassword ? "text" : "password"}
+                  className="bg-transparent rounded-md w-11/12 p-2 focus:outline-none"
+                  aria-labelledby="password-input-title"
+                />
+                {showPassword ? (
+                  <i
+                    className="fa fa-eye-slash cursor-pointer"
+                    onClick={() => setShowPassword(false)}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa fa-eye cursor-pointer"
+                    onClick={() => setShowPassword(true)}
+                  ></i>
+                )}
+              </div>
             </div>
             <div>
               <Label

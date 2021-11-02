@@ -33,7 +33,7 @@ const Login = () => {
     setLoading(false);
   };
   return (
-    <div className="h-screen flex justify-center">
+    <div className="h-screen flex justify-center back">
       <div className="text-center mt-40">
         <h1 className="text-5xl font-semibold mb-4">Nova Socials</h1>
         <p className="text-red-600 font-medium">{error}</p>
