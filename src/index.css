@@ -10,3 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.back {
+  background: url(assets/background.svg) no-repeat top;
+  background-size: cover;
+}
