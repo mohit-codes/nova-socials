@@ -1,9 +1,9 @@
 import { Redirect } from "@reach/router";
-import { useAuth } from "../Context/authProvider";
+import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ component: Component, path }) => {
-  const { user } = useAuth();
-  return user == null ? (
+  const isUserLoggedIn = useSelector((state) => state.user.isUserLoggedIn);
+  return !isUserLoggedIn ? (
     <Redirect from="" to="/" noThrow />
   ) : (
     <Component path={path} />
