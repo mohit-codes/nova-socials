@@ -2,9 +2,14 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PrivateRoute from "./Components/PrivateRoute";
 import { setUserFromLocalStorage } from "./features/user/userSlice";
-import Home from "./Pages/Home";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
+import {
+  Home,
+  Login,
+  Notification,
+  Signup,
+  Profile,
+  Messages,
+} from "./Pages/index";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -20,6 +25,15 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<PrivateRoute />}>
           <Route path="/home" element={<Home />} />
+        </Route>
+        <Route path="/notifications" element={<PrivateRoute />}>
+          <Route path="/notifications" element={<Notification />} />
+        </Route>
+        <Route path="/profile/:userId" element={<PrivateRoute />}>
+          <Route path="/profile/:userId" element={<Profile />} />
+        </Route>
+        <Route path="/messages" element={<PrivateRoute />}>
+          <Route path="/messages" element={<Messages />} />
         </Route>
       </Routes>
     </div>
