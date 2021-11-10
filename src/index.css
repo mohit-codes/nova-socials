@@ -15,3 +15,11 @@ body {
   background: url(assets/background.svg) no-repeat top;
   background-size: cover;
 }
+
+.nav-element {
+  @apply p-3 text-lg  rounded-full hover:bg-gray-200;
+}
+
+.nav-element-active {
+  @apply p-3 text-lg  rounded-full bg-gray-200;
+}
