@@ -9,6 +9,7 @@ import {
   Signup,
   Profile,
   Messages,
+  PostInfo,
 } from "./Pages/index";
 import { Route, Routes } from "react-router-dom";
 
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route path="/messages" element={<PrivateRoute />}>
           <Route path="/messages" element={<Messages />} />
+        </Route>
+        <Route path="/post/:postId" element={<PrivateRoute />}>
+          <Route path="/post/:postId" element={<PostInfo />} />
         </Route>
       </Routes>
     </div>
