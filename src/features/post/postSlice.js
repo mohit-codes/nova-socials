@@ -98,7 +98,7 @@ export const deletePost = createAsyncThunk(
   "post/deletePost",
   async ({ postId }, thunkAPI) => {
     try {
-      const { data } = await axios.delete(`${BASE_URL}/posts/${postId}`);
+      const { data } = await axios.delete(`${BASE_URL}/posts/delete/${postId}`);
       if (data.success) {
         return data;
       }
@@ -184,6 +184,7 @@ const postSlice = createSlice({
       state.loading = false;
       state.errorMessage = "";
       state.userPosts.unshift(action.payload.post);
+      console.log(action.payload.post);
       state.feed.unshift(action.payload.post);
     },
     [likePost.pending]: (state) => {
@@ -244,7 +245,7 @@ const postSlice = createSlice({
         (post) => post._id === action.payload.postId
       );
       state.feed.splice(index, 1);
-      state.state.loading = false;
+      state.loading = false;
     },
     [fetchPostLikes.pending]: (state) => {
       state.loading = true;
