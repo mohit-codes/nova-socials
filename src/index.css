@@ -16,6 +16,9 @@ body {
   background-size: cover;
 }
 
+i {
+  cursor: pointer;
+}
 .nav-element {
   @apply p-3 text-lg  rounded-full hover:bg-gray-200;
 }
