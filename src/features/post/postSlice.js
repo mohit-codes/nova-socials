@@ -49,6 +49,21 @@ export const createPost = createAsyncThunk(
   }
 );
 
+export const updatePost = createAsyncThunk(
+  "post/updatePost",
+  async (body, thunkAPI) => {
+    try {
+      const { data } = await axios.put(`${BASE_URL}/posts/update-post`, body);
+      if (data.success) {
+        return data;
+      }
+      return thunkAPI.rejectWithValue({ errorMessage: data.message });
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
 export const likePost = createAsyncThunk(
   "post/likePost",
   async (body, thunkAPI) => {
@@ -69,6 +84,24 @@ export const commentPost = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const { data } = await axios.post(`${BASE_URL}/posts/comment`, body);
+      if (data.success) {
+        return data;
+      }
+      return thunkAPI.rejectWithValue({ errorMessage: data.message });
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
+export const deleteComment = createAsyncThunk(
+  "post/deleteComment",
+  async ({ commentId }, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(
+        `${BASE_URL}/posts/comment/${commentId}`
+      );
+      console.log(data);
       if (data.success) {
         return data;
       }
@@ -113,7 +146,7 @@ export const fetchPostLikes = createAsyncThunk(
   "post/fetchPostLikes",
   async ({ postId }, thunkAPI) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/post/likes/${postId}`);
+      const { data } = await axios.get(`${BASE_URL}/posts/likes/${postId}`);
       if (data.success) {
         return data;
       }
@@ -128,7 +161,22 @@ export const fetchPostComments = createAsyncThunk(
   "post/fetchPostComments",
   async ({ postId }, thunkAPI) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/post/comments/${postId}`);
+      const { data } = await axios.get(`${BASE_URL}/posts/comments/${postId}`);
+      if (data.success) {
+        return data;
+      }
+      return thunkAPI.rejectWithValue({ errorMessage: data.message });
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
+export const fetchSinglePost = createAsyncThunk(
+  "post/fetchSinglePost",
+  async ({ postId }, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/posts/${postId}`);
       if (data.success) {
         return data;
       }
@@ -143,10 +191,12 @@ const postSlice = createSlice({
   name: "post",
   initialState: {
     feed: [],
+    post: null,
     userPosts: [],
     likes: [],
     comments: [],
     loading: false,
+    commentsLoading: false,
     errMessage: null,
   },
   reducers: {},
@@ -184,7 +234,6 @@ const postSlice = createSlice({
       state.loading = false;
       state.errorMessage = "";
       state.userPosts.unshift(action.payload.post);
-      console.log(action.payload.post);
       state.feed.unshift(action.payload.post);
     },
     [likePost.pending]: (state) => {
@@ -202,17 +251,18 @@ const postSlice = createSlice({
       state.feed[index].likes.unshift(action.payload.likedBy.id);
       state.loading = false;
     },
-    [commentPost.pending]: (state) => {
-      state.loading = true;
-    },
+    // [commentPost.pending]: (state) => {
+    //   state.loading = true;
+    // },
     [commentPost.rejected]: (state, action) => {
       state.loading = false;
       state.errorMessage = action.payload.errorMessage;
     },
     [commentPost.fulfilled]: (state, action) => {
-      state.loading = false;
       state.errorMessage = "";
-      state.comments.unshift(action.payload.likedBy);
+      console.log(action.payload.comment);
+      state.comments.unshift(action.payload.comment);
+      state.loading = false;
     },
     [unlikePost.pending]: (state) => {
       state.loading = true;
@@ -260,16 +310,46 @@ const postSlice = createSlice({
       state.loading = false;
     },
     [fetchPostComments.pending]: (state) => {
-      state.loading = true;
+      state.commentsLoading = true;
     },
     [fetchPostComments.rejected]: (state, action) => {
-      state.loading = false;
+      state.commentsLoading = false;
       state.errorMessage = action.payload.errorMessage;
     },
     [fetchPostComments.fulfilled]: (state, action) => {
       state.errorMessage = "";
       state.comments = action.payload.comments;
+      state.commentsLoading = false;
+    },
+    [fetchSinglePost.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchSinglePost.rejected]: (state, action) => {
       state.loading = false;
+      state.errorMessage = action.payload.errorMessage;
+    },
+    [fetchSinglePost.fulfilled]: (state, action) => {
+      state.post = action.payload.post;
+      state.errMessage = "";
+      state.loading = false;
+    },
+    [updatePost.pending]: (state) => {
+      state.loading = true;
+    },
+    [updatePost.rejected]: (state, action) => {
+      state.loading = false;
+      state.errMessage = action.payload.errorMessage;
+    },
+    [updatePost.fulfilled]: (state, action) => {
+      state.post.content = action.payload.post.content;
+      state.loading = false;
+      state.errMessage = "";
+    },
+    [deleteComment.fulfilled]: (state, action) => {
+      const index = state.comments.findIndex(
+        (comment) => comment._id === action.payload.commentId
+      );
+      state.comments.splice(index, 1);
     },
   },
 });
