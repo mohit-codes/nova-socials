@@ -19,7 +19,7 @@ export const Post = ({ post }) => {
 
   return (
     <div
-      className="p-2 w-full flex border cursor-pointer"
+      className="p-2 w-full flex border cursor-pointer hover:bg-gray-50"
       onClick={() => navigate(`/post/${post._id}`)}
     >
       <div
