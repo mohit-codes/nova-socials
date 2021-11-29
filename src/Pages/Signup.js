@@ -1,18 +1,22 @@
-import { navigate } from "@reach/router";
 import { useState } from "react";
 import { Input, Label } from "../Components/FormComponents";
-import { useAuth } from "../Context/authProvider";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { signupUserAsync } from "../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { validateEmail } from "../utils/utility";
+import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
-  const { signupUserWithCredentials, validateEmail } = useAuth();
+export const Signup = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, errorMessage } = useSelector((state) => state.user);
   const matchPassword = confirmPassword === password;
 
   const isPasswordValid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(
@@ -46,26 +50,28 @@ const Signup = () => {
       setError("Both passwords must be same");
       return;
     }
-    setLoading(true);
-    const { message, success } = await signupUserWithCredentials(
-      username,
-      name,
-      email,
-      password
+    const { meta } = await dispatch(
+      signupUserAsync({
+        username,
+        name,
+        email,
+        password,
+      })
     );
-    setLoading(false);
-    if (success) {
-      navigate("home");
-      return;
+    if (meta.requestStatus === "fulfilled") {
+      navigate("/home");
     }
-    setError(message);
   };
+
   return (
     <div className="h-screen flex justify-center back">
       <div className="text-center mt-14">
         <h1 className="text-5xl font-semibold mb-4">Nova Socials</h1>
         {error !== "" && (
           <p className="text-red-600 font-medium max-w-sm">{error}</p>
+        )}
+        {errorMessage !== "" && (
+          <p className="text-red-600 font-medium max-w-sm">{errorMessage}</p>
         )}
         <div className="bg-gray-200 p-4 text-left rounded-md mt-2 shadow-lg">
           <form onSubmit={signupHandler}>
@@ -122,15 +128,15 @@ const Signup = () => {
                   aria-labelledby="password-input-title"
                 />
                 {showPassword ? (
-                  <i
-                    className="fa fa-eye-slash cursor-pointer"
+                  <AiOutlineEyeInvisible
                     onClick={() => setShowPassword(false)}
-                  ></i>
+                    className="text-2xl cursor-pointer"
+                  />
                 ) : (
-                  <i
-                    className="fa fa-eye cursor-pointer"
+                  <AiOutlineEye
                     onClick={() => setShowPassword(true)}
-                  ></i>
+                    className="text-2xl cursor-pointer"
+                  />
                 )}
               </div>
             </div>
@@ -162,5 +168,3 @@ const Signup = () => {
     </div>
   );
 };
-
-export default Signup;
