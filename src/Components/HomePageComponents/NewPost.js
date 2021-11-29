@@ -22,7 +22,12 @@ const NewPost = () => {
     <div className="py-2 px-3 border">
       <form onSubmit={submitHandler}>
         <div className="flex">
-          <div className="w-12 h-10 mr-3 rounded-full bg-gray-400"></div>
+          <img
+            src={user.profileUrl}
+            alt={user.name}
+            loading="lazy"
+            className="w-14 h-14 mr-2 rounded-full"
+          />
           <div className="w-full">
             <textarea
               value={content}
