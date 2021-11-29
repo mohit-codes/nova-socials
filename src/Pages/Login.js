@@ -5,7 +5,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUserAsync } from "../features/user/userSlice";
 
-const Login = () => {
+export const Login = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -87,7 +87,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={email === "" || password === ""}
-                  className="bg-blue-500 text-white px-3 py-2 rounded-md my-2 w-36 font-semibold"
+                  className="bg-blue-500 text-white px-3 py-2 rounded-full my-2 w-36 font-semibold"
                 >
                   {!loading ? "Login" : "Logging In..."}
                 </button>
@@ -116,5 +116,3 @@ const Login = () => {
     </>
   );
 };
-
-export default Login;
