@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Feed from "../Components/HomePageComponents/Feed";
 import NewPost from "../Components/HomePageComponents/NewPost";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
+import { RecentlyJoinedUsers } from "../Components/HomePageComponents/RecentlyJoinedUsers";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ export const Home = () => {
           <NewPost />
           <Feed />
         </div>
+      </div>
+      <div className="ml-5">
+        <RecentlyJoinedUsers />
       </div>
     </div>
   );
