@@ -20,7 +20,7 @@ export const RecentlyJoinedUsers = () => {
     );
     dispatch(followUser({ targetId: id }));
   };
-  console.log(buttonStateArray);
+
   useEffect(() => {
     dispatch(fetchRecentlyJoinedUsers());
     setButtonStateArray(new Array(recentlyJoinedUsers.length).fill(false));
