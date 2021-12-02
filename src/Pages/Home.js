@@ -9,6 +9,7 @@ import { RecentlyJoinedUsers } from "../Components/HomePageComponents/RecentlyJo
 export const Home = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.data._id);
+  const { feed } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(fetchUserFeed({ userId }));
@@ -25,7 +26,7 @@ export const Home = () => {
         </div>
         <div className="mt-10 w-full">
           <NewPost />
-          <Feed />
+          <Feed feed={feed} />
         </div>
       </div>
       <div className="ml-5">
