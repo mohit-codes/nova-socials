@@ -49,9 +49,9 @@ export const signupUserAsync = createAsyncThunk(
 
 export const fetchUserFollowers = createAsyncThunk(
   "user/fetchUserFollowers",
-  async ({ userId }, thunkAPI) => {
+  async (body, thunkAPI) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/users/followers/${userId}`);
+      const { data } = await axios.post(`${BASE_URL}/users/followers`, body);
       if (data.success) {
         return data;
       }
@@ -64,9 +64,9 @@ export const fetchUserFollowers = createAsyncThunk(
 
 export const fetchUserFollowing = createAsyncThunk(
   "user/fetchUserFollowing",
-  async ({ userId }, thunkAPI) => {
+  async (body, thunkAPI) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/users/following/${userId}`);
+      const { data } = await axios.post(`${BASE_URL}/users/following`, body);
       if (data.success) {
         return data;
       }
@@ -94,6 +94,29 @@ export const fetchUserInfo = createAsyncThunk(
 
 export const followUser = createAsyncThunk(
   "user/followUser",
+  async ({ targetId }, thunkAPI) => {
+    try {
+      const {
+        user: {
+          data: { _id: sourceId },
+        },
+      } = thunkAPI.getState();
+      const { data } = await axios.post(`${BASE_URL}/users/follow`, {
+        targetId,
+        sourceId,
+      });
+      if (data.success) {
+        return data;
+      }
+      return thunkAPI.rejectWithValue({ errorMessage: data.message });
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
+export const unFollowUser = createAsyncThunk(
+  "user/unFollowUser",
   async ({ targetId }, thunkAPI) => {
     try {
       const {
@@ -145,6 +168,15 @@ const userSlice = createSlice({
       name: null,
       username: null,
       email: null,
+      profileUrl: null,
+      followers: [],
+      following: [],
+    },
+    retrievedUser: {
+      _id: null,
+      name: null,
+      username: null,
+      email: null,
       bio: null,
       profileUrl: null,
       followers: [],
@@ -154,9 +186,11 @@ const userSlice = createSlice({
     isUserLoggedIn: false,
     loading: false,
     errorMessage: "",
+    retrievedUserLoading: false,
     recentlyJoinedUsers: [],
     recentlyJoinedUsersLoading: false,
     initialLoading: true,
+    profileTabsFetching: true,
   },
   reducers: {
     logoutUser: (state) => {
@@ -223,52 +257,50 @@ const userSlice = createSlice({
       state.errorMessage = action.payload.errorMessage;
     },
     [fetchUserFollowers.pending]: (state) => {
-      state.loading = true;
+      state.profileTabsFetching = true;
+      state.errorMessage = "";
     },
     [fetchUserFollowers.rejected]: (state, action) => {
-      state.loading = false;
+      state.profileTabsFetching = false;
       state.errorMessage = action.payload.errorMessage;
     },
     [fetchUserFollowers.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.profileTabsFetching = false;
       state.errorMessage = "";
-      state.data.followers = action.payload.followers;
+      state.retrievedUser.followers = action.payload.followers;
     },
     [fetchUserFollowing.pending]: (state) => {
-      state.loading = true;
+      state.profileTabsFetching = true;
+      state.errorMessage = "";
     },
     [fetchUserFollowing.rejected]: (state, action) => {
-      state.loading = false;
+      state.profileTabsFetching = false;
       state.errorMessage = action.payload.errorMessage;
     },
     [fetchUserFollowing.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.profileTabsFetching = false;
       state.errorMessage = "";
-      state.data.following = action.payload.following;
+      state.retrievedUser.following = action.payload.following;
     },
     [fetchUserInfo.pending]: (state) => {
-      state.loading = true;
+      state.retrievedUserLoading = true;
+      state.errorMessage = "";
     },
     [fetchUserInfo.rejected]: (state, action) => {
-      state.loading = false;
+      state.retrievedUserLoading = false;
       state.errorMessage = action.payload.errorMessage;
     },
     [fetchUserInfo.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.retrievedUserLoading = false;
       state.errorMessage = "";
-      state.data = action.payload.user;
+      state.retrievedUser = action.payload.user;
     },
-    [fetchUserInfo.pending]: (state) => {
-      state.loading = true;
-    },
-    [fetchUserInfo.rejected]: (state, action) => {
-      state.loading = false;
-      state.errorMessage = action.payload.errorMessage;
-    },
-    [fetchUserInfo.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.errorMessage = "";
+    [followUser.fulfilled]: (state, action) => {
       state.data.following.push(action.payload.targetUserId);
+    },
+    [unFollowUser.fulfilled]: (state, action) => {
+      const index = state.data.following.indexOf(action.payload.targetUserId);
+      state.data.following.splice(index, 1);
     },
     [fetchRecentlyJoinedUsers.pending]: (state) => {
       state.recentlyJoinedUsersLoading = true;
