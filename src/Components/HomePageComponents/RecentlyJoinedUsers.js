@@ -1,29 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Spinner from "../Spinner";
-import {
-  fetchRecentlyJoinedUsers,
-  followUser,
-} from "../../features/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { fetchRecentlyJoinedUsers } from "../../features/user/userSlice";
+import { UserTileComponent } from "../ProfilePageComponents/UserTileComponent";
 
 export const RecentlyJoinedUsers = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const { recentlyJoinedUsers, recentlyJoinedUsersLoading } = useSelector(
     (state) => state.user
   );
-  const [buttonStateArray, setButtonStateArray] = useState([]);
-  const handleClick = (id, index) => {
-    setButtonStateArray(
-      buttonStateArray.map((i, idx) => (idx === index ? !i : i))
-    );
-    dispatch(followUser({ targetId: id }));
-  };
 
   useEffect(() => {
     dispatch(fetchRecentlyJoinedUsers());
-    setButtonStateArray(new Array(recentlyJoinedUsers.length).fill(false));
   }, []);
 
   return (
@@ -41,38 +30,8 @@ export const RecentlyJoinedUsers = () => {
           <Spinner />
         </div>
       ) : (
-        recentlyJoinedUsers.map((user, index) => {
-          return (
-            <div
-              key={user._id}
-              className="flex py-2 px-3 mb-1 items-start cursor-pointer"
-              onClick={() => navigate(`/profile/${user._id}`)}
-            >
-              <img
-                src={user.profileUrl}
-                alt={user.name}
-                loading="lazy"
-                className="w-10 h-10 mr-2"
-              />
-              <div>
-                <p className="leading-4 font-medium">{user.name}</p>
-                <p className="leading-4 text-gray-400">@{user.username}</p>
-              </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleClick(user._id, index);
-                }}
-                className={
-                  buttonStateArray[index]
-                    ? "button-black--clicked"
-                    : "button-black"
-                }
-              >
-                {buttonStateArray[index] ? "Following" : "Follow"}
-              </button>
-            </div>
-          );
+        recentlyJoinedUsers.map((user) => {
+          return <UserTileComponent key={user._id} user={user} />;
         })
       )}
     </aside>
