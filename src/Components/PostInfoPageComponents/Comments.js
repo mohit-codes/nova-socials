@@ -21,7 +21,12 @@ export const Comments = () => {
         comments.map((comment) => {
           return (
             <div key={comment._id} className="border p-2 flex justify-between">
-              <div className="w-10 h-10 rounded-full bg-gray-200"></div>
+              <img
+                src={comment.commenterProfileUrl}
+                alt={comment.commenterName}
+                loading="lazy"
+                className="w-10 h-10 mr-2 rounded-full"
+              />
               <div className="ml-2 w-full">
                 <div>
                   <div>
