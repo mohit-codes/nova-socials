@@ -66,7 +66,12 @@ export const PostInfo = () => {
             ) : (
               <div className="mt-10 w-full border">
                 <div className="p-2 flex">
-                  <div className="w-10 h-10 rounded-full bg-gray-200"></div>
+                  <img
+                    src={post.authorProfileUrl}
+                    alt={post.authorName}
+                    loading="lazy"
+                    className="w-10 h-10 mr-2 rounded-full"
+                  />
                   <div className="ml-2 w-full">
                     <div className="leading-tight">
                       <span className="font-semibold">{post?.authorName}</span>
