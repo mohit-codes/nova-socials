@@ -37,7 +37,7 @@ const EditProfileModal = ({ setShowProfileModal, user }) => {
     dispatch(
       updateUserInfo({
         name: formState["Name"],
-        Bio: formState["Bio"],
+        bio: formState["Bio"],
         profileUrl: profileUrl,
       })
     );
