@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import Feed from "../Components/HomePageComponents/Feed";
 import NewPost from "../Components/HomePageComponents/NewPost";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
-import { RecentlyJoinedUsers } from "../Components/HomePageComponents/RecentlyJoinedUsers";
+import { RecentlyJoinedUsers } from "../Components/RecentlyJoinedUsers";
+import SearchBox from "../Components/Search/SearchBox";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ export const Home = () => {
           <Feed feed={feed} />
         </div>
       </div>
-      <div className="ml-5">
+      <div className="ml-5 w-80">
+        <SearchBox />
         <RecentlyJoinedUsers />
       </div>
     </div>
