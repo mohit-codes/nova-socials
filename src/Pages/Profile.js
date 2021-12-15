@@ -12,6 +12,7 @@ import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar
 import { useParams } from "react-router";
 import Spinner from "../Components/Spinner";
 import EditProfileModal from "../Components/ProfilePageComponents/EditProfileModal";
+import { RecentlyJoinedUsers } from "../Components/RecentlyJoinedUsers";
 
 export const Profile = () => {
   const { retrievedUser, retrievedUserLoading: loading } = useSelector(
@@ -116,6 +117,9 @@ export const Profile = () => {
             <SwitchTabComponent userId={userId} />
           </div>
         )}
+      </div>
+      <div className="ml-8">
+        <RecentlyJoinedUsers />
       </div>
       {showProfileModal && (
         <EditProfileModal
