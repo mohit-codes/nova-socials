@@ -19,10 +19,11 @@ export const fetchUserFeed = createAsyncThunk(
 
 export const fetchUserPosts = createAsyncThunk(
   "post/fetchUserPosts",
-  async ({ userId }, thunkAPI) => {
+  async (body, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `${BASE_URL}/users/get-user-posts/${userId}`
+      const { data } = await axios.post(
+        `${BASE_URL}/users/get-user-posts`,
+        body
       );
       if (data.success) {
         return data;
@@ -196,7 +197,8 @@ const postSlice = createSlice({
     likes: [],
     comments: [],
     loading: false,
-    commentsLoading: false,
+    loadingLikes: false,
+    loadingComments: false,
     errMessage: null,
   },
   reducers: {},
@@ -221,6 +223,7 @@ const postSlice = createSlice({
     },
     [fetchUserPosts.fulfilled]: (state, action) => {
       state.loading = false;
+      state.err = "";
       state.userPosts = action.payload.posts;
     },
     [createPost.pending]: (state) => {
@@ -236,24 +239,22 @@ const postSlice = createSlice({
       state.userPosts.unshift(action.payload.post);
       state.feed.unshift(action.payload.post);
     },
-    [likePost.pending]: (state) => {
-      state.loading = true;
-    },
-    [likePost.rejected]: (state, action) => {
-      state.loading = false;
-      state.errorMessage = action.payload.errorMessage;
-    },
+    // [likePost.pending]: (state) => {
+    //   state.loading = true;
+    // },
+    // [likePost.rejected]: (state, action) => {
+    //   state.loading = false;
+    //   state.errorMessage = action.payload.errorMessage;
+    // },
     [likePost.fulfilled]: (state, action) => {
       state.errorMessage = "";
       const index = state.feed.findIndex(
         (post) => post._id === action.payload.postId
       );
       state.feed[index].likes.unshift(action.payload.likedBy.id);
+      state.feed[index].isLikedByUser = true;
       state.loading = false;
     },
-    // [commentPost.pending]: (state) => {
-    //   state.loading = true;
-    // },
     [commentPost.rejected]: (state, action) => {
       state.loading = false;
       state.errorMessage = action.payload.errorMessage;
@@ -264,13 +265,13 @@ const postSlice = createSlice({
       state.comments.unshift(action.payload.comment);
       state.loading = false;
     },
-    [unlikePost.pending]: (state) => {
-      state.loading = true;
-    },
-    [unlikePost.rejected]: (state, action) => {
-      state.loading = false;
-      state.errorMessage = action.payload.errorMessage;
-    },
+    // [unlikePost.pending]: (state) => {
+    //   state.loading = true;
+    // },
+    // [unlikePost.rejected]: (state, action) => {
+    //   state.loading = false;
+    //   state.errorMessage = action.payload.errorMessage;
+    // },
     [unlikePost.fulfilled]: (state, action) => {
       state.errorMessage = "";
       const index = state.feed.findIndex(
@@ -280,6 +281,7 @@ const postSlice = createSlice({
         action.payload.unlikeBy
       );
       state.feed[index].likes.splice(indexOfId, 1);
+      state.feed[index].isLikedByUser = false;
       state.loading = false;
     },
     [deletePost.pending]: (state) => {
@@ -298,28 +300,28 @@ const postSlice = createSlice({
       state.loading = false;
     },
     [fetchPostLikes.pending]: (state) => {
-      state.loading = true;
+      state.loadingLikes = true;
     },
     [fetchPostLikes.rejected]: (state, action) => {
-      state.loading = false;
+      state.loadingLikes = false;
       state.errorMessage = action.payload.errorMessage;
     },
     [fetchPostLikes.fulfilled]: (state, action) => {
       state.errorMessage = "";
       state.likes = action.payload.likes;
-      state.loading = false;
+      state.loadingLikes = false;
     },
     [fetchPostComments.pending]: (state) => {
-      state.commentsLoading = true;
+      state.loadingComments = true;
     },
     [fetchPostComments.rejected]: (state, action) => {
-      state.commentsLoading = false;
+      state.loadingComments = false;
       state.errorMessage = action.payload.errorMessage;
     },
     [fetchPostComments.fulfilled]: (state, action) => {
       state.errorMessage = "";
       state.comments = action.payload.comments;
-      state.commentsLoading = false;
+      state.loadingComments = false;
     },
     [fetchSinglePost.pending]: (state) => {
       state.loading = true;

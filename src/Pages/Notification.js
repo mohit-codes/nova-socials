@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaRegComment, FaHeart } from "react-icons/fa";
+import { FaRegComment, FaHeart, FaRegUser } from "react-icons/fa";
 import { fetchNotifications } from "../features/notification/notificationSlice";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
 import Spinner from "../Components/Spinner";
@@ -20,7 +20,7 @@ export const Notification = () => {
   return (
     <div className="flex h-screen bg-white">
       <SideNavigationBar />
-      <div className="w-600 border">
+      <div className="w-600 border ml-0 md:ml-28 lg:ml-0">
         <div className="fixed w-600 h-10 bg-white flex items-center p-2 border">
           <span className="font-semibold" role="heading">
             Notifications
@@ -39,12 +39,13 @@ export const Notification = () => {
                     <i>
                       {notification.type === "LIKED" ? (
                         <FaHeart className="text-pink-400 inline mr-3" />
-                      ) : (
+                      ) : notification.type === "NEW_COMMENT" ? (
                         <FaRegComment className="inline mr-3" />
+                      ) : (
+                        <FaRegUser className="inline mr-3" />
                       )}
                     </i>
                     <Link to={`/profile/${notification.sourceId}`}>
-                      {" "}
                       <span className="font-semibold mr-1">
                         {notification.sourceName}
                       </span>
@@ -52,7 +53,9 @@ export const Notification = () => {
                     <span>
                       {notification.type === "LIKED"
                         ? "liked your post"
-                        : "commented on your post"}
+                        : notification.type === "NEW_COMMENT"
+                        ? "commented on your post"
+                        : "followed you"}
                     </span>
                   </p>
                 </div>

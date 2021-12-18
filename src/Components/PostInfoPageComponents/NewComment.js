@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { commentPost } from "../../features/post/postSlice";
 
 export const NewComment = ({ userId, postId }) => {
@@ -9,6 +9,7 @@ export const NewComment = ({ userId, postId }) => {
   const disableBtn = comment === "" || comment.length > 100;
   const [showCommentLengthChip, setShowCommentLengthChip] = useState(false);
   const dispatch = useDispatch();
+  const { name, profileUrl } = useSelector((state) => state.user.data);
 
   const commentHandler = (e) => {
     e.preventDefault();
@@ -19,7 +20,12 @@ export const NewComment = ({ userId, postId }) => {
 
   return (
     <div className="border p-2 flex justify-between">
-      <div className="w-10 h-10 rounded-full bg-gray-200"></div>
+      <img
+        src={profileUrl}
+        alt={name}
+        loading="lazy"
+        className="w-10 h-10 mr-2 rounded-full"
+      />
       <form onSubmit={commentHandler} className="w-11/12">
         <textarea
           value={comment}

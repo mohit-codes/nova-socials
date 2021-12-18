@@ -46,7 +46,7 @@ export const PostInfo = () => {
     <>
       <div className="flex h-screen bg-white z-10">
         <SideNavigationBar />
-        <div className="w-600 border">
+        <div className="w-600 border ml-0 md:ml-28 lg:ml-0">
           <div className="fixed w-600 h-10 bg-white flex items-center p-2 border space-x-6">
             <i aria-label="Back" role="button">
               <BiArrowBack className="inline" onClick={() => navigate(-1)} />
@@ -66,7 +66,12 @@ export const PostInfo = () => {
             ) : (
               <div className="mt-10 w-full border">
                 <div className="p-2 flex">
-                  <div className="w-10 h-10 rounded-full bg-gray-200"></div>
+                  <img
+                    src={post?.authorProfileUrl}
+                    alt={post?.authorName}
+                    loading="lazy"
+                    className="w-10 h-10 mr-2 rounded-full"
+                  />
                   <div className="ml-2 w-full">
                     <div className="leading-tight">
                       <span className="font-semibold">{post?.authorName}</span>

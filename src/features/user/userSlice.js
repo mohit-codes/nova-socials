@@ -124,7 +124,7 @@ export const unFollowUser = createAsyncThunk(
           data: { _id: sourceId },
         },
       } = thunkAPI.getState();
-      const { data } = await axios.post(`${BASE_URL}/users/follow`, {
+      const { data } = await axios.post(`${BASE_URL}/users/unfollow`, {
         targetId,
         sourceId,
       });
@@ -149,6 +149,29 @@ export const fetchRecentlyJoinedUsers = createAsyncThunk(
       } = thunkAPI.getState();
       const { data } = await axios.get(
         `${BASE_URL}/users/get-recently-joined-users/${userId}`
+      );
+      if (data.success) {
+        return data;
+      }
+      return thunkAPI.rejectWithValue({ errorMessage: data.message });
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
+export const updateUserInfo = createAsyncThunk(
+  "user/updateUserInfo",
+  async (body, thunkAPI) => {
+    try {
+      const {
+        user: {
+          data: { _id: userId },
+        },
+      } = thunkAPI.getState();
+      const { data } = await axios.put(
+        `${BASE_URL}/users/update/${userId}`,
+        body
       );
       if (data.success) {
         return data;
@@ -268,6 +291,9 @@ const userSlice = createSlice({
       state.profileTabsFetching = false;
       state.errorMessage = "";
       state.retrievedUser.followers = action.payload.followers;
+      if (state.data._id === state.retrievedUser._id) {
+        state.data.followers = action.payload.followers;
+      }
     },
     [fetchUserFollowing.pending]: (state) => {
       state.profileTabsFetching = true;
@@ -281,6 +307,9 @@ const userSlice = createSlice({
       state.profileTabsFetching = false;
       state.errorMessage = "";
       state.retrievedUser.following = action.payload.following;
+      if (state.data._id === state.retrievedUser._id) {
+        state.data.following = action.payload.following;
+      }
     },
     [fetchUserInfo.pending]: (state) => {
       state.retrievedUserLoading = true;
@@ -297,10 +326,17 @@ const userSlice = createSlice({
     },
     [followUser.fulfilled]: (state, action) => {
       state.data.following.push(action.payload.targetUserId);
+      if (state.retrievedUser._id === action.payload.targetUserId) {
+        state.retrievedUser.followers.push(state.data._id);
+      }
     },
     [unFollowUser.fulfilled]: (state, action) => {
-      const index = state.data.following.indexOf(action.payload.targetUserId);
+      let index = state.data.following.indexOf(action.payload.targetUserId);
       state.data.following.splice(index, 1);
+      if (state.retrievedUser._id === action.payload.targetUserId) {
+        index = state.retrievedUser.followers.indexOf(state.data._id);
+        state.retrievedUser.followers.splice(index, 1);
+      }
     },
     [fetchRecentlyJoinedUsers.pending]: (state) => {
       state.recentlyJoinedUsersLoading = true;
@@ -312,6 +348,14 @@ const userSlice = createSlice({
     [fetchRecentlyJoinedUsers.fulfilled]: (state, action) => {
       state.recentlyJoinedUsers = action.payload.users;
       state.recentlyJoinedUsersLoading = false;
+    },
+    [updateUserInfo.pending]: (state) => {
+      state.retrievedUserLoading = true;
+    },
+    [updateUserInfo.fulfilled]: (state, action) => {
+      state.retrievedUser = action.payload.user;
+      state.data = action.payload.user;
+      state.retrievedUserLoading = false;
     },
   },
 });

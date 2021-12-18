@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 
-const SideBarNavLink = ({ children, ariaLabel, role, to }) => {
+const SideBarNavLink = ({ children, ariaLabel, role, to, styleClass }) => {
   return (
     <NavLink
       to={to}
       aria-label={ariaLabel}
       role={role}
       className={({ isActive }) =>
-        `flex items-center mt-1 space-x-2 ${
+        `${styleClass} flex items-center justify-center lg:justify-start md:mt-3 lg:mt-1 lg:space-x-2 ${
           isActive ? "nav-element-active" : "nav-element"
         }`
       }
