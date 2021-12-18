@@ -19,7 +19,7 @@ export const RecentlyJoinedUsers = () => {
     <aside
       aria-label="Recently joined users"
       role="complementary"
-      className="rounded-3xl bg-gray-100 h-96 w-80 mt-3 fixed bg-opacity-80"
+      className="rounded-3xl bg-gray-100 h-96 w-80 mt-3 bg-opacity-80"
     >
       <div className="px-5 py-3 text-lg font-semibold border-b">
         Recently Joined Users
