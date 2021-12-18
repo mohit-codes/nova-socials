@@ -4,6 +4,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import { setUserFromLocalStorage } from "./features/user/userSlice";
 import {
   Home,
+  Explore,
   Login,
   Notification,
   Signup,
@@ -26,6 +27,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<PrivateRoute />}>
           <Route path="/home" element={<Home />} />
+        </Route>
+        <Route path="/explore" element={<PrivateRoute />}>
+          <Route path="/explore" element={<Explore />} />
         </Route>
         <Route path="/notifications" element={<PrivateRoute />}>
           <Route path="/notifications" element={<Notification />} />
