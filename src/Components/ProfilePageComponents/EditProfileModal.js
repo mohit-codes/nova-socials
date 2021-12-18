@@ -55,7 +55,7 @@ const EditProfileModal = ({ setShowProfileModal, user }) => {
       ariaLabel="Edit Profile"
     >
       <div
-        className="bg-white rounded-md py-2 px-2 w-600"
+        className="bg-white rounded-md py-2 px-2 w-96 lg:w-600"
         onClick={(e) => e.stopPropagation()}
       >
         <form onSubmit={submitHandler}>
@@ -72,8 +72,8 @@ const EditProfileModal = ({ setShowProfileModal, user }) => {
               Save
             </button>
           </div>
-          <div className="py-2">
-            <div className="flex w-1/2 items-center ml-auto mr-auto">
+          <div className="py-2 px-2 lg:px-0">
+            <div className="flex px-5 lg:px-0 lg:w-1/2 items-center ml-auto mr-auto">
               <img
                 src={profileUrl}
                 alt={user.name}
