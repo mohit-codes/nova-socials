@@ -4,7 +4,7 @@ import { BASE_URL } from "../../utils/utility";
 
 export const useSearch = (searchText) => {
   const [result, setResult] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const debouncer = useCallback(function (callback, delay) {
     let timeoutId;
