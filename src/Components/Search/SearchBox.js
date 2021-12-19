@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { UserTileComponent } from "../ProfilePageComponents/UserTileComponent";
 import Spinner from "../Spinner";
+import SearchField from "./SearchField";
 import { useSearch } from "./useSearch";
 
 const SearchBox = () => {
@@ -10,17 +11,13 @@ const SearchBox = () => {
 
   return (
     <div className="w-full mt-2">
-      <input
+      <SearchField
         onFocus={() => setShowDropDown(true)}
         onBlur={() => setShowDropDown(false)}
-        type="search"
         role="combobox"
-        aria-label="Search"
-        aria-owns="dropdown-1"
-        placeholder="Search Users"
+        ariaOwns="dropdown-1"
         value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        className="rounded-full border-2 border-gray-200 w-full h-10 outline-none px-2"
+        callback={(e) => setSearchText(e.target.value)}
       />
       {showDropDown && (
         <div
