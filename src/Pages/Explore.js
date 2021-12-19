@@ -3,6 +3,7 @@ import { UserTileComponent } from "../Components/ProfilePageComponents/UserTileC
 import { useSearch } from "../Components/Search/useSearch";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
 import Spinner from "../Components/Spinner";
+import SearchField from "../Components/Search/SearchField";
 
 export const Explore = () => {
   const [searchText, setSearchText] = useState("");
@@ -19,13 +20,9 @@ export const Explore = () => {
         </div>
         <div className="mt-10 w-full px-5">
           <div className="pt-3">
-            <input
-              type="search"
-              aria-label="Search"
-              placeholder="Search Users"
+            <SearchField
               value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="rounded-full border-2 border-gray-200 w-full h-10 outline-none px-2"
+              callback={(e) => setSearchText(e.target.value)}
             />
           </div>
           <div className="w-full pt-4">
