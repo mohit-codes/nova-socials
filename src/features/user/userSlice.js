@@ -194,6 +194,7 @@ const userSlice = createSlice({
       profileUrl: null,
       followers: [],
       following: [],
+      chats: [],
     },
     retrievedUser: {
       _id: null,
