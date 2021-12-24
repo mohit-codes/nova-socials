@@ -6,6 +6,9 @@ module.exports = {
       width: {
         600: "600px",
       },
+      colors: {
+        slate: "#eff3f4",
+      },
     },
   },
   variants: {
