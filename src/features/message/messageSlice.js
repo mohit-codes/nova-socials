@@ -46,10 +46,10 @@ const messageSlice = createSlice({
   },
   reducers: {
     newMessage: (state, action) => {
-      state.messages.append(action.payload);
+      state.messages.push(action.payload);
     },
     newChat: (state, action) => {
-      state.chats.append(action.payload);
+      state.chats.push(action.payload);
     },
     deleteMessage: (state, action) => {
       state.messages = state.messages.filter(
