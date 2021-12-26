@@ -1,4 +1,4 @@
-# Social Media Web App
+# Nova Socials Web App
 
 ## Technology Stack
 - React - Redux-Toolkit
