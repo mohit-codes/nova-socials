@@ -50,3 +50,7 @@ i {
 .message-receiver-style {
   @apply mr-auto rounded-bl-none rounded-3xl bg-slate;
 }
+
+.user-tile-base-style {
+  @apply flex mb-1 items-start cursor-pointer hover:bg-gray-50;
+}
