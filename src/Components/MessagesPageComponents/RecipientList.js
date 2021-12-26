@@ -13,9 +13,16 @@ const RecipientList = () => {
 
   useEffect(() => {
     dispatch(fetchChats({ userId }));
+
     socket.on("newRecipient", (info) => {
       dispatch(newChat(info));
     });
+
+    return () => {
+      socket.off("newRecipient", (info) => {
+        dispatch(newChat(info));
+      });
+    };
   }, []);
 
   return (
