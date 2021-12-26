@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { followUser, unFollowUser } from "../../features/user/userSlice";
+import { followUser, unFollowUser } from "../features/user/userSlice";
 
 export const UserTileComponent = ({ user }) => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const UserTileComponent = ({ user }) => {
   return (
     <div
       key={user._id}
-      className="flex py-2 px-3 mb-1 items-start cursor-pointer hover:bg-gray-50"
+      className="user-tile-base-style py-2 px-3"
       onClick={() => navigate(`/profile/${user._id}`)}
     >
       <img

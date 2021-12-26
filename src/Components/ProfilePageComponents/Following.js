@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserFollowing } from "../../features/user/userSlice";
 import Spinner from "../Spinner";
 
-import { UserTileComponent } from "./UserTileComponent";
+import { UserTileComponent } from "../UserTileComponent";
 
 const Following = ({ userId }) => {
   const {
