@@ -35,6 +35,39 @@ export const fetchMessages = createAsyncThunk(
   }
 );
 
+export const deleteMessage = createAsyncThunk(
+  "message/deleteMessage",
+  async ({ messageId }, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(`${BASE_URL}/messages/${messageId}`);
+      if (data.success) {
+        return data;
+      }
+      return thunkAPI.rejectWithValue({ errorMessage: data.message });
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
+export const deleteChat = createAsyncThunk(
+  "message/deleteChat",
+  async (body, thunkAPI) => {
+    try {
+      const { data } = await axios.post(
+        `${BASE_URL}/messages/delete-chat`,
+        body
+      );
+      if (data.success) {
+        return data;
+      }
+      return thunkAPI.rejectWithValue({ errorMessage: data.message });
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
 const messageSlice = createSlice({
   name: "message",
   initialState: {
@@ -50,16 +83,6 @@ const messageSlice = createSlice({
     },
     newChat: (state, action) => {
       state.chats.push(action.payload);
-    },
-    deleteMessage: (state, action) => {
-      state.messages = state.messages.filter(
-        (message) => message._id.toString() !== action.payload.id.toString()
-      );
-    },
-    deleteChat: (state, action) => {
-      state.chats = state.chats.filter(
-        (recipient) => recipient._id.toString() !== action.payload.id.toString()
-      );
     },
   },
   extraReducers: {
@@ -87,10 +110,21 @@ const messageSlice = createSlice({
       state.error = "";
       state.loadingMessages = false;
     },
+    [deleteMessage.fulfilled]: (state, action) => {
+      state.messages = state.messages.filter(
+        (message) =>
+          message.messageId.toString() !== action.payload.messageId.toString()
+      );
+    },
+    [deleteChat.fulfilled]: (state, action) => {
+      state.chats = state.chats.filter(
+        (recipient) =>
+          recipient._id.toString() !== action.payload.recipientId.toString()
+      );
+    },
   },
 });
 
-export const { newMessage, newChat, deleteChat, deleteMessage } =
-  messageSlice.actions;
+export const { newMessage, newChat } = messageSlice.actions;
 
 export default messageSlice.reducer;
