@@ -27,7 +27,6 @@ const NewMessageModal = ({ setShowNewMessageModal }) => {
     setShowNewMessageModal(false);
   };
 
-  console.log(result);
   return (
     <ModalWrapper
       ariaLabel="New Message"
