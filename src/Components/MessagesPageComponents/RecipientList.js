@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 import { fetchChats, newChat } from "../../features/message/messageSlice";
 import Spinner from "../Spinner";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,7 @@ const RecipientList = () => {
     };
   }, []);
 
+  console.log(chats);
   return (
     <div>
       {loadingChats ? (
@@ -55,4 +56,4 @@ const RecipientList = () => {
   );
 };
 
-export default memo(RecipientList);
+export default RecipientList;
