@@ -17,7 +17,7 @@ import {
   LikesModal,
 } from "../Components/PostInfoPageComponents/index";
 
-export const PostInfo = () => {
+const PostInfo = () => {
   const dispatch = useDispatch();
   const { post, loading, errMessage } = useSelector((state) => state.post);
   const user = useSelector((state) => state.user.data);
@@ -134,3 +134,5 @@ export const PostInfo = () => {
     </>
   );
 };
+
+export default PostInfo;

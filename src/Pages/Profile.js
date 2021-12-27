@@ -14,7 +14,7 @@ import Spinner from "../Components/Spinner";
 import EditProfileModal from "../Components/ProfilePageComponents/EditProfileModal";
 import { RecentlyJoinedUsers } from "../Components/RecentlyJoinedUsers";
 
-export const Profile = () => {
+const Profile = () => {
   const { retrievedUser, retrievedUserLoading: loading } = useSelector(
     (state) => state.user
   );
@@ -130,3 +130,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+export default Profile;

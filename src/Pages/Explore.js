@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { UserTileComponent } from "../Components/ProfilePageComponents/UserTileComponent";
+import { UserTileComponent } from "../Components/UserTileComponent";
 import { useSearch } from "../Components/Search/useSearch";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
 import Spinner from "../Components/Spinner";
 import SearchField from "../Components/Search/SearchField";
 
-export const Explore = () => {
+const Explore = () => {
   const [searchText, setSearchText] = useState("");
   const { loading, result } = useSearch(searchText);
 
@@ -48,3 +48,5 @@ export const Explore = () => {
     </div>
   );
 };
+
+export default Explore;

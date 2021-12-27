@@ -5,7 +5,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUserAsync } from "../features/user/userSlice";
 
-export const Login = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -45,7 +45,7 @@ export const Login = () => {
                   id="email-input-title"
                 />
                 <Input
-                  callback={setEmail}
+                  callback={(e) => setEmail(e.target.value)}
                   placeholder="Your Email"
                   value={email}
                   id="email"
@@ -116,3 +116,5 @@ export const Login = () => {
     </>
   );
 };
+
+export default Login;

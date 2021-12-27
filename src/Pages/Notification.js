@@ -6,7 +6,7 @@ import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar
 import Spinner from "../Components/Spinner";
 import { Link } from "react-router-dom";
 
-export const Notification = () => {
+const Notification = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.data._id);
   const { loading, errMessage, notifications } = useSelector(
@@ -75,3 +75,5 @@ export const Notification = () => {
     </div>
   );
 };
+
+export default Notification;

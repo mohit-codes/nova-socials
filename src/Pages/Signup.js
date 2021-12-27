@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { validateEmail } from "../utils/utility";
 import { useNavigate } from "react-router-dom";
 
-export const Signup = () => {
+const Signup = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -82,7 +82,7 @@ export const Signup = () => {
                 id="name"
                 placeholder="Name"
                 ariaLabelledBy="name-input-title"
-                callback={setName}
+                callback={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -96,13 +96,13 @@ export const Signup = () => {
                 placeholder="Username"
                 ariaLabelledBy="username-input-title"
                 value={username}
-                callback={setUsername}
+                callback={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
               <Label htmlFor="email" labelText="Email" id="email-input-title" />
               <Input
-                callback={setEmail}
+                callback={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 value={email}
                 id="email"
@@ -151,7 +151,7 @@ export const Signup = () => {
                 id="confirmPassword"
                 ariaLabelledBy="confirmPassword-input-title"
                 value={confirmPassword}
-                callback={setConfirmPassword}
+                callback={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div className="flex justify-center">
@@ -168,3 +168,4 @@ export const Signup = () => {
     </div>
   );
 };
+export default Signup;
