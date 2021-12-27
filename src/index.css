@@ -9,6 +9,10 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --toastify-color-light: #60a5fa;
+  --toastify-toast-width: 180px;
+  --toastify-toast-max-height: 40px;
+  --toastify-text-color-light: #fff;
 }
 
 .back {
