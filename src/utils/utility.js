@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:8080";
+export const BASE_URL = "https://nova-socials.herokuapp.com";
 import crypto from "crypto-js";
 import { toast } from "react-toastify";
 
