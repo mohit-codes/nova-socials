@@ -19,7 +19,7 @@ const Header = ({ recipient }) => {
 
   return (
     <div className="flex px-2 py-1 items-center relative">
-      <i aria-label="Back" role="button" className="lg:hidden">
+      <i aria-label="Back" role="button" className="lg:hidden text-xl mr-3">
         <BiArrowBack className="inline" onClick={() => navigate(-1)} />
       </i>
       <img
@@ -43,7 +43,7 @@ const Header = ({ recipient }) => {
       {showMenu && (
         <div
           role="listbox"
-          className="bg-blue-400 absolute -bottom-5 -right-20 rounded-md"
+          className="bg-blue-400 absolute lg:-bottom-5 lg:-right-20 right-8 rounded-md"
         >
           <button onClick={handleDelete} className="text-white py-1 px-2">
             Delete Chat
