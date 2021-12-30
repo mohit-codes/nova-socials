@@ -5,9 +5,9 @@ Social media web app built using MERN stack.
 - React - Redux-Toolkit
 - Styling using TailwindCSS
 - React Router v6 for routing
-- Socket.io for instant messaging
+- Socket.io as websocket for instant messaging
 - Cloudinary for image upload
-- Express & Node for API Repo Link
+- Express & Node for API [Repo Link](https://github.com/mohit-codes/social-media--backend)
 - MongoDB using mongoose for data storage
 - User authentication using JWT
 
