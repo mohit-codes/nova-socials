@@ -194,6 +194,7 @@ const userSlice = createSlice({
       profileUrl: null,
       followers: [],
       following: [],
+      chats: [],
     },
     retrievedUser: {
       _id: null,
@@ -240,11 +241,12 @@ const userSlice = createSlice({
       if (jsonUser) {
         user = JSON.parse(jsonUser);
       }
-      const token = localStorage.getItem("token");
+      const token = JSON.parse(localStorage.getItem("token"));
       if (user !== undefined && token !== null) {
         state.isUserLoggedIn = true;
         state.data = user;
         state.token = token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       }
       state.initialLoading = false;
     },

@@ -5,9 +5,9 @@ import { Post } from "./Post";
 const Feed = ({ feed }) => {
   const { loading, errMessage } = useSelector((state) => state.post);
   return (
-    <div>
+    <div className="pb-16 md:pb-0">
       {loading ? (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 ">
           <Spinner />
         </div>
       ) : (

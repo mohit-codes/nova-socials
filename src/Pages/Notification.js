@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaRegComment, FaHeart, FaRegUser } from "react-icons/fa";
 import { fetchNotifications } from "../features/notification/notificationSlice";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
 import Spinner from "../Components/Spinner";
-import { Link } from "react-router-dom";
+import NotificationTemplate from "../Components/NotificationPageComponent/Notification";
 
-export const Notification = () => {
+const Notification = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.data._id);
   const { loading, errMessage, notifications } = useSelector(
@@ -34,31 +33,10 @@ export const Notification = () => {
           ) : (
             notifications.map((notification) => {
               return (
-                <div key={notification._id} className="border py-5 px-3">
-                  <p>
-                    <i>
-                      {notification.type === "LIKED" ? (
-                        <FaHeart className="text-pink-400 inline mr-3" />
-                      ) : notification.type === "NEW_COMMENT" ? (
-                        <FaRegComment className="inline mr-3" />
-                      ) : (
-                        <FaRegUser className="inline mr-3" />
-                      )}
-                    </i>
-                    <Link to={`/profile/${notification.sourceId}`}>
-                      <span className="font-semibold mr-1">
-                        {notification.sourceName}
-                      </span>
-                    </Link>
-                    <span>
-                      {notification.type === "LIKED"
-                        ? "liked your post"
-                        : notification.type === "NEW_COMMENT"
-                        ? "commented on your post"
-                        : "followed you"}
-                    </span>
-                  </p>
-                </div>
+                <NotificationTemplate
+                  key={notification._id}
+                  notification={notification}
+                />
               );
             })
           )}
@@ -75,3 +53,5 @@ export const Notification = () => {
     </div>
   );
 };
+
+export default Notification;

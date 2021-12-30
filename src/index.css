@@ -9,6 +9,10 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --toastify-color-light: #60a5fa;
+  --toastify-toast-width: 180px;
+  --toastify-toast-max-height: 40px;
+  --toastify-text-color-light: #fff;
 }
 
 .back {
@@ -38,4 +42,19 @@ i {
 }
 .small-button {
   @apply ml-3 border-2 font-medium rounded-full px-2 py-1 hover:text-black hover:border-black;
+}
+
+.message-base-style {
+  @apply mb-3 whitespace-nowrap py-2 px-3 relative;
+}
+
+.message-sender-style {
+  @apply ml-auto bg-blue-400 text-white rounded-br-none rounded-3xl;
+}
+.message-receiver-style {
+  @apply mr-auto rounded-bl-none rounded-3xl bg-slate;
+}
+
+.user-tile-base-style {
+  @apply flex mb-1 items-start cursor-pointer hover:bg-gray-50;
 }

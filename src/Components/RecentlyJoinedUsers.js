@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Spinner from "./Spinner";
 import { fetchRecentlyJoinedUsers } from "../features/user/userSlice";
-import { UserTileComponent } from "./ProfilePageComponents/UserTileComponent";
+import { UserTileComponent } from "./UserTileComponent";
 
 export const RecentlyJoinedUsers = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import ModalWrapper from "../ModalWrapper";
 import { GrClose } from "react-icons/gr";
-import { Label } from "../../Components/FormComponents";
+import { Label, Input } from "../../Components/FormComponents";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "../../features/user/userSlice";
@@ -85,22 +85,20 @@ const EditProfileModal = ({ setShowProfileModal, user }) => {
               </button>
             </div>
             <Label labelText="Name" id="name-label" htmlFor="edit-name" />
-            <input
+            <Input
               name="Name"
               value={formState["Name"]}
-              onChange={changeHandler}
+              callback={changeHandler}
               id="edit-name"
-              aria-labelledby="name-label"
-              className="border-2 border-gray-400 rounded-md w-full p-2 my-2"
+              ariaLabelledBy="name-label"
             />
             <Label labelText="Bio" id="bio-label" htmlFor="edit-bio" />
-            <input
+            <Input
               name="Bio"
               value={formState["Bio"]}
-              onChange={changeHandler}
-              aria-labelledby="bio-label"
+              callback={changeHandler}
               id="edit-bio"
-              className="border-2 border-gray-400 rounded-md w-full p-2 my-2"
+              ariaLabelledBy="bio-label"
             />
           </div>
         </form>

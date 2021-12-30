@@ -102,7 +102,6 @@ export const deleteComment = createAsyncThunk(
       const { data } = await axios.delete(
         `${BASE_URL}/posts/comment/${commentId}`
       );
-      console.log(data);
       if (data.success) {
         return data;
       }
@@ -261,7 +260,6 @@ const postSlice = createSlice({
     },
     [commentPost.fulfilled]: (state, action) => {
       state.errorMessage = "";
-      console.log(action.payload.comment);
       state.comments.unshift(action.payload.comment);
       state.loading = false;
     },
