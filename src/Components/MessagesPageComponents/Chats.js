@@ -31,7 +31,7 @@ const Chats = () => {
   }, [id]);
 
   return (
-    <div className="fixed flex flex-col bg-white lg:static border w-full lg:max-w-xl">
+    <div className="fixed flex flex-col bg-white lg:static border w-full md:w-17/20 h-full lg:max-w-xl">
       <Header recipient={recipient} />
       {loadingMessages ? (
         <div className="flex justify-center mt-2">
