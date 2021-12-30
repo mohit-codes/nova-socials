@@ -25,7 +25,6 @@ const RecipientList = () => {
     };
   }, []);
 
-  console.log(chats);
   return (
     <div>
       {loadingChats ? (
