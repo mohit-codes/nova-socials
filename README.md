@@ -34,16 +34,16 @@ Social media web app built using MERN stack.
 ## ScreenShots
 <div>
   <p align="center" width="100%">
-    <img width="450px" src="https://user-images.githubusercontent.com/40515852/147810057-1bdc1a25-c228-40b8-9a5c-8cd63d45a934.png" >
-    <img width="450px" src="https://user-images.githubusercontent.com/40515852/147810070-a462c74a-5d5d-42f5-9111-16480cfa4ace.png" >
+    <img width="300px" src="https://user-images.githubusercontent.com/40515852/147810057-1bdc1a25-c228-40b8-9a5c-8cd63d45a934.png" >
+    <img width="300px" src="https://user-images.githubusercontent.com/40515852/147810070-a462c74a-5d5d-42f5-9111-16480cfa4ace.png" >
     
   </p>
 <p align="center" width="100%">
-  <img width="450px" src="https://user-images.githubusercontent.com/40515852/147810075-68871e1b-6d7d-45ce-afdc-80a07e1ad915.png" >
-  <img src="https://user-images.githubusercontent.com/40515852/147810077-a769ef9a-00c0-4a54-8783-695731864852.png" width=450px />
+  <img width="300px" src="https://user-images.githubusercontent.com/40515852/147810075-68871e1b-6d7d-45ce-afdc-80a07e1ad915.png" >
+  <img src="https://user-images.githubusercontent.com/40515852/147810077-a769ef9a-00c0-4a54-8783-695731864852.png" width=300px />
 </p>
   <p align="center" width="100%">
-    <img src="https://user-images.githubusercontent.com/40515852/147810081-5e6a38d8-4e7a-4c85-b086-6034730d3373.png" width=500px />
+    <img src="https://user-images.githubusercontent.com/40515852/147810081-5e6a38d8-4e7a-4c85-b086-6034730d3373.png" width=300px />
   </p>
 </div>
 
