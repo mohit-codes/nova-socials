@@ -16,6 +16,7 @@ import {
   Comments,
   LikesModal,
 } from "../Components/PostInfoPageComponents/index";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const PostInfo = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const PostInfo = () => {
     post !== null ? dayjs(post?.createdAt).format("h:mm A - MMM D, YYYY") : "";
 
   useEffect(() => {
+    useDocumentTitle(`${post.authorName} on Nova Socials`);
     dispatch(fetchSinglePost({ postId }));
     dispatch(fetchPostComments({ postId }));
   }, []);

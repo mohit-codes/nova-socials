@@ -4,10 +4,12 @@ import { useSearch } from "../Components/Search/useSearch";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
 import Spinner from "../Components/Spinner";
 import SearchField from "../Components/Search/SearchField";
-
+import useDocumentTitle from "../hooks/useDocumentTitle";
 const Explore = () => {
   const [searchText, setSearchText] = useState("");
   const { loading, result } = useSearch(searchText);
+
+  useDocumentTitle("Explore | Nova Socials");
 
   return (
     <div className="flex h-screen bg-white">

@@ -4,6 +4,7 @@ import { Input, Label } from "../Components/FormComponents";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUserAsync } from "../features/user/userSlice";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const Login = () => {
     (state) => state.user
   );
   const navigate = useNavigate();
+
+  useDocumentTitle("Login | Nova Socials");
 
   const loginHandler = async (event) => {
     event.preventDefault();
