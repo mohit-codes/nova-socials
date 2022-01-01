@@ -31,10 +31,11 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
 
+  useDocumentTitle(
+    `${retrievedUser.name} (@${retrievedUser.username}) | Nova Socials`
+  );
+
   useEffect(() => {
-    useDocumentTitle(
-      `${retrievedUser.name} (@${retrievedUser.username}) | Nova Socials`
-    );
     dispatch(fetchUserInfo({ userId }));
   }, [userId]);
 

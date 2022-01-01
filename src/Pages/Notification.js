@@ -13,8 +13,9 @@ const Notification = () => {
     (state) => state.notification
   );
 
+  useDocumentTitle("Notifications | Nova Socials");
+
   useEffect(() => {
-    useDocumentTitle("Notifications | Nova Socials");
     dispatch(fetchNotifications({ userId }));
   }, []);
 
