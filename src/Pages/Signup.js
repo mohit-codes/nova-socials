@@ -5,6 +5,7 @@ import { signupUserAsync } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { validateEmail } from "../utils/utility";
 import { useNavigate } from "react-router-dom";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -22,6 +23,8 @@ const Signup = () => {
   const isPasswordValid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(
     password
   );
+
+  useDocumentTitle("Sign up | Nova Socials");
 
   const signupHandler = async (event) => {
     event.preventDefault();

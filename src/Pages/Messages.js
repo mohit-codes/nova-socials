@@ -8,6 +8,7 @@ import InitialSectionCover from "../Components/MessagesPageComponents/InitialSec
 import { Outlet, useLocation } from "react-router";
 import NewMessageModal from "../Components/MessagesPageComponents/NewMessageModal";
 import Toast from "../Components/Toast/Toast";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Messages = () => {
   const user = useSelector((state) => state.user.data);
@@ -16,6 +17,7 @@ const Messages = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    useDocumentTitle("Messages | Nova Socials");
     socket.emit("connectUser", { name: user.name });
   }, []);
 

@@ -4,6 +4,7 @@ import { fetchNotifications } from "../features/notification/notificationSlice";
 import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar";
 import Spinner from "../Components/Spinner";
 import NotificationTemplate from "../Components/NotificationPageComponent/Notification";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Notification = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const Notification = () => {
   );
 
   useEffect(() => {
+    useDocumentTitle("Notifications | Nova Socials");
     dispatch(fetchNotifications({ userId }));
   }, []);
 

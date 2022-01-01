@@ -13,6 +13,7 @@ import { useParams } from "react-router";
 import Spinner from "../Components/Spinner";
 import EditProfileModal from "../Components/ProfilePageComponents/EditProfileModal";
 import { RecentlyJoinedUsers } from "../Components/RecentlyJoinedUsers";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Profile = () => {
   const { retrievedUser, retrievedUserLoading: loading } = useSelector(
@@ -31,6 +32,9 @@ const Profile = () => {
   const { userId } = useParams();
 
   useEffect(() => {
+    useDocumentTitle(
+      `${retrievedUser.name} (@${retrievedUser.username}) | Nova Socials`
+    );
     dispatch(fetchUserInfo({ userId }));
   }, [userId]);
 

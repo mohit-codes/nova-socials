@@ -8,6 +8,7 @@ import SideNavigationBar from "../Components/SideNavigationBar/SideNavigationBar
 import { RecentlyJoinedUsers } from "../Components/RecentlyJoinedUsers";
 import SearchBox from "../Components/Search/SearchBox";
 import { FaSignOutAlt } from "react-icons/fa";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Home = () => {
   const { feed } = useSelector((state) => state.post);
 
   useEffect(() => {
+    useDocumentTitle("Home | Nova Socials");
     dispatch(fetchUserFeed({ userId }));
   }, []);
 
