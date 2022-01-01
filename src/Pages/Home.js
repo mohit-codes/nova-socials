@@ -15,8 +15,9 @@ const Home = () => {
   const userId = useSelector((state) => state.user.data._id);
   const { feed } = useSelector((state) => state.post);
 
+  useDocumentTitle("Home | Nova Socials");
+
   useEffect(() => {
-    useDocumentTitle("Home | Nova Socials");
     dispatch(fetchUserFeed({ userId }));
   }, []);
 

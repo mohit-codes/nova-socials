@@ -33,8 +33,9 @@ const PostInfo = () => {
   const createdAt =
     post !== null ? dayjs(post?.createdAt).format("h:mm A - MMM D, YYYY") : "";
 
+  useDocumentTitle(`${post.authorName} on Nova Socials`);
+
   useEffect(() => {
-    useDocumentTitle(`${post.authorName} on Nova Socials`);
     dispatch(fetchSinglePost({ postId }));
     dispatch(fetchPostComments({ postId }));
   }, []);

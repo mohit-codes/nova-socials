@@ -16,8 +16,9 @@ const Messages = () => {
   const socket = useSocket();
   const { pathname } = useLocation();
 
+  useDocumentTitle("Messages | Nova Socials");
+
   useEffect(() => {
-    useDocumentTitle("Messages | Nova Socials");
     socket.emit("connectUser", { name: user.name });
   }, []);
 
