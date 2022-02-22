@@ -40,7 +40,7 @@ const NewMessageModal = ({ setShowNewMessageModal }) => {
       >
         <div className="py-1 px-2 flex w-full items-center mb-2">
           <span className="font-semibold text-lg">New Message</span>
-          <i className="ml-auto">
+          <i className="ml-auto" onClick={() => setShowNewMessageModal(false)}>
             <ImCross />
           </i>
         </div>
@@ -55,6 +55,11 @@ const NewMessageModal = ({ setShowNewMessageModal }) => {
             </div>
           ) : (
             <div className="w-full py-1 h-44 overflow-auto">
+              {result.length === 0 && (
+                <p className="text-center mt-5 font-medium text-gray-500">
+                  Try searching by name or username
+                </p>
+              )}
               {result.map((user) => {
                 return (
                   <div
