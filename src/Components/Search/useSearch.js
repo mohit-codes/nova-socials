@@ -30,7 +30,7 @@ export const useSearch = (searchText) => {
     }
   }, []);
 
-  const debouncedFunction = useCallback(debouncer(getSearchResult, 500), [
+  const debouncedFunction = useCallback(debouncer(getSearchResult, 3000), [
     searchText,
   ]);
 

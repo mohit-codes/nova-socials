@@ -18,7 +18,13 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, errorMessage } = useSelector((state) => state.user);
+
   const matchPassword = confirmPassword === password;
+  const isEmptyFields =
+    !name.trim().length ||
+    !username.trim().length ||
+    !email.trim().length ||
+    !password.trim().length;
 
   const isPasswordValid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(
     password
@@ -29,13 +35,7 @@ const Signup = () => {
   const signupHandler = async (event) => {
     event.preventDefault();
     setError("");
-    if (
-      name === "" ||
-      username === "" ||
-      email === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
+    if (isEmptyFields) {
       setError("All fields are required!");
       return;
     }
