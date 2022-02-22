@@ -32,7 +32,7 @@ const Profile = () => {
   const { userId } = useParams();
 
   useDocumentTitle(
-    `${retrievedUser.name} (@${retrievedUser.username}) | Nova Socials`
+    `${retrievedUser?.name} (@${retrievedUser?.username}) | Nova Socials`
   );
 
   useEffect(() => {
