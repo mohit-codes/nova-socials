@@ -9,11 +9,16 @@ const SearchBox = () => {
   const { loading, result } = useSearch(searchText);
   const [showDropDown, setShowDropDown] = useState(false);
 
+  const handleClose = () => {
+    if (!searchText.trim().length) {
+      setShowDropDown(false);
+    }
+  };
   return (
     <div className="w-full mt-2">
       <SearchField
         onFocus={() => setShowDropDown(true)}
-        onBlur={() => setShowDropDown(false)}
+        onBlur={handleClose}
         role="combobox"
         ariaOwns="dropdown-1"
         value={searchText}
