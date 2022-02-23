@@ -55,11 +55,11 @@ const EditProfileModal = ({ setShowProfileModal, user }) => {
       ariaLabel="Edit Profile"
     >
       <div
-        className="bg-white rounded-md py-2 px-2 w-96 lg:w-600"
+        className="bg-white rounded-md py-2 px-4 w-96 lg:w-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <form onSubmit={submitHandler}>
-          <div className="py-1 flex w-full text-lg items-center border-b">
+          <div className="py-1  flex w-full text-lg items-center border-b">
             <i
               role="button"
               aria-label="Close"
@@ -73,33 +73,38 @@ const EditProfileModal = ({ setShowProfileModal, user }) => {
             </button>
           </div>
           <div className="py-2 px-2 lg:px-0">
-            <div className="flex px-5 lg:px-0 lg:w-1/2 items-center ml-auto mr-auto">
+            <div className="flex px-5 lg:px-0 lg:w-1/2 items-center ml-auto mr-auto space-x-2">
               <img
                 src={profileUrl}
                 alt={user.name}
                 loading="lazy"
                 className="w-24 h-24 rounded-full"
               />
-              <button onClick={openWidget} className="button-black">
+              <button
+                onClick={openWidget}
+                className="button-black whitespace-nowrap"
+              >
                 Change Profile Picture
               </button>
             </div>
-            <Label labelText="Name" id="name-label" htmlFor="edit-name" />
-            <Input
-              name="Name"
-              value={formState["Name"]}
-              callback={changeHandler}
-              id="edit-name"
-              ariaLabelledBy="name-label"
-            />
-            <Label labelText="Bio" id="bio-label" htmlFor="edit-bio" />
-            <Input
-              name="Bio"
-              value={formState["Bio"]}
-              callback={changeHandler}
-              id="edit-bio"
-              ariaLabelledBy="bio-label"
-            />
+            <div className="">
+              <Label labelText="Name" id="name-label" htmlFor="edit-name" />
+              <Input
+                name="Name"
+                value={formState["Name"]}
+                callback={changeHandler}
+                id="edit-name"
+                ariaLabelledBy="name-label"
+              />
+              <Label labelText="Bio" id="bio-label" htmlFor="edit-bio" />
+              <Input
+                name="Bio"
+                value={formState["Bio"]}
+                callback={changeHandler}
+                id="edit-bio"
+                ariaLabelledBy="bio-label"
+              />
+            </div>
           </div>
         </form>
       </div>
