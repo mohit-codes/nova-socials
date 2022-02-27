@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import Spinner from "../Spinner";
 import { Post } from "./Post";
 
-const Feed = ({ feed }) => {
+const Feed = ({ feed, isRetrievedUserPosts }) => {
   const { loading, errMessage } = useSelector((state) => state.post);
   return (
     <div className="pb-16 md:pb-0">
@@ -12,7 +12,13 @@ const Feed = ({ feed }) => {
         </div>
       ) : (
         feed.map((post) => {
-          return <Post key={post._id} post={post} />;
+          return (
+            <Post
+              key={post._id}
+              post={post}
+              isPostFromFeed={isRetrievedUserPosts ? false : true}
+            />
+          );
         })
       )}
       {feed.length === 0 && errMessage && (

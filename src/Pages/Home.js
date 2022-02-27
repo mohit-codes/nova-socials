@@ -40,7 +40,7 @@ const Home = () => {
         </div>
         <div className="mt-10 w-full">
           <NewPost />
-          <Feed feed={feed} />
+          <Feed feed={feed} isRetrievedUserPosts={false} />
         </div>
       </div>
       <div className="ml-5 w-80 hidden lg:block">

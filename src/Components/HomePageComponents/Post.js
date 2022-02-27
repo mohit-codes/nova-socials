@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { likePost, unlikePost } from "../../features/post/postSlice";
 
-export const Post = ({ post }) => {
+export const Post = ({ post, isPostFromFeed }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.data._id);
@@ -13,9 +13,10 @@ export const Post = ({ post }) => {
 
   const likeHandler = (e, isLikedByUser) => {
     e.stopPropagation();
+    const body = { userId, postId: post._id };
     isLikedByUser
-      ? dispatch(unlikePost({ userId, postId: post._id }))
-      : dispatch(likePost({ userId, postId: post._id }));
+      ? dispatch(unlikePost({ body, isPostFromFeed }))
+      : dispatch(likePost({ body, isPostFromFeed }));
   };
 
   return (
