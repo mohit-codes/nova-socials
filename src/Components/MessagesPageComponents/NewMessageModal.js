@@ -85,7 +85,11 @@ const NewMessageModal = ({ setShowNewMessageModal }) => {
             </div>
           )}
         </div>
-        <button onClick={handleStart} className="button mt-auto ml-auto">
+        <button
+          onClick={handleStart}
+          className="button mt-auto ml-auto"
+          disabled={!searchText.trim().length}
+        >
           Start
         </button>
       </div>

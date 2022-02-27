@@ -67,11 +67,11 @@ export const updatePost = createAsyncThunk(
 
 export const likePost = createAsyncThunk(
   "post/likePost",
-  async (body, thunkAPI) => {
+  async ({ body, isPostFromFeed }, thunkAPI) => {
     try {
       const { data } = await axios.post(`${BASE_URL}/posts/like`, body);
       if (data.success) {
-        return data;
+        return { ...data, isPostFromFeed };
       }
       return thunkAPI.rejectWithValue({ errorMessage: data.message });
     } catch (error) {
@@ -114,11 +114,11 @@ export const deleteComment = createAsyncThunk(
 
 export const unlikePost = createAsyncThunk(
   "post/unlikePost",
-  async (body, thunkAPI) => {
+  async ({ body, isPostFromFeed }, thunkAPI) => {
     try {
       const { data } = await axios.post(`${BASE_URL}/posts/unlike`, body);
       if (data.success) {
-        return data;
+        return { ...data, isPostFromFeed };
       }
       return thunkAPI.rejectWithValue({ errorMessage: data.message });
     } catch (error) {
@@ -247,12 +247,19 @@ const postSlice = createSlice({
     // },
     [likePost.fulfilled]: (state, action) => {
       state.errorMessage = "";
-      const index = state.feed.findIndex(
-        (post) => post._id === action.payload.postId
-      );
-      state.feed[index].likes.unshift(action.payload.likedBy.id);
-      state.feed[index].isLikedByUser = true;
-      state.loading = false;
+      if (action.payload.isPostFromFeed) {
+        const index = state.feed.findIndex(
+          (post) => post._id === action.payload.postId
+        );
+        state.feed[index].likes.unshift(action.payload.likedBy.id);
+        state.feed[index].isLikedByUser = true;
+      } else {
+        const index = state.userPosts.findIndex(
+          (post) => post._id === action.payload.postId
+        );
+        state.userPosts[index].likes.unshift(action.payload.likedBy.id);
+        state.userPosts[index].isLikedByUser = true;
+      }
     },
     [commentPost.rejected]: (state, action) => {
       state.loading = false;
@@ -272,15 +279,25 @@ const postSlice = createSlice({
     // },
     [unlikePost.fulfilled]: (state, action) => {
       state.errorMessage = "";
-      const index = state.feed.findIndex(
-        (post) => post._id === action.payload.postId
-      );
-      const indexOfId = state.feed[index].likes.indexOf(
-        action.payload.unlikeBy
-      );
-      state.feed[index].likes.splice(indexOfId, 1);
-      state.feed[index].isLikedByUser = false;
-      state.loading = false;
+      if (action.payload.isPostFromFeed) {
+        const index = state.feed.findIndex(
+          (post) => post._id === action.payload.postId
+        );
+        const indexOfId = state.feed[index].likes.indexOf(
+          action.payload.unlikeBy
+        );
+        state.feed[index].likes.splice(indexOfId, 1);
+        state.feed[index].isLikedByUser = false;
+      } else {
+        const index = state.userPosts.findIndex(
+          (post) => post._id === action.payload.postId
+        );
+        const indexOfId = state.userPosts[index].likes.indexOf(
+          action.payload.unlikeBy
+        );
+        state.userPosts[index].likes.splice(indexOfId, 1);
+        state.userPosts[index].isLikedByUser = false;
+      }
     },
     [deletePost.pending]: (state) => {
       state.loading = true;

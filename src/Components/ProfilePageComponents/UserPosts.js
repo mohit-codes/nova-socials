@@ -12,5 +12,5 @@ export const UserPosts = ({ userId }) => {
     dispatch(fetchUserPosts({ userId, clientId }));
   }, []);
 
-  return <Feed feed={userPosts} />;
+  return <Feed feed={userPosts} isRetrievedUserPosts={true} />;
 };

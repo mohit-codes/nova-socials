@@ -20,6 +20,11 @@ body {
   background-size: cover;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  background-color: gainsboro;
+}
+
 i {
   cursor: pointer;
 }
