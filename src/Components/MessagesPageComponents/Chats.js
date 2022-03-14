@@ -16,17 +16,17 @@ const Chats = () => {
   const dispatch = useDispatch();
   const socket = useSocket();
 
+  const socketNewMessageCallback = (info) => {
+    dispatch(newMessage(info));
+  };
+
   useEffect(() => {
     dispatch(fetchMessages({ userId, receiverId: recipient._id }));
 
-    socket.on("message", (info) => {
-      dispatch(newMessage(info));
-    });
+    socket.on("message", socketNewMessageCallback);
 
     return () => {
-      socket.off("message", (info) => {
-        dispatch(newMessage(info));
-      });
+      socket.off("message", socketNewMessageCallback);
     };
   }, [id]);
 
