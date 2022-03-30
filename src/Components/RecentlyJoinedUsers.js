@@ -24,16 +24,17 @@ export const RecentlyJoinedUsers = () => {
       <div className="px-5 py-3 text-lg font-semibold border-b">
         Recently Joined Users
       </div>
-
-      {recentlyJoinedUsersLoading ? (
-        <div className="justify-center flex mt-2">
-          <Spinner />
-        </div>
-      ) : (
-        recentlyJoinedUsers.map((user) => {
-          return <UserTileComponent key={user._id} user={user} />;
-        })
-      )}
+      <div className="overflow-y-auto h-80">
+        {recentlyJoinedUsersLoading ? (
+          <div className="justify-center flex mt-2">
+            <Spinner />
+          </div>
+        ) : (
+          recentlyJoinedUsers.map((user) => {
+            return <UserTileComponent key={user._id} user={user} />;
+          })
+        )}
+      </div>
     </aside>
   );
 };
